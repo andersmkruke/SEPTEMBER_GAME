@@ -17,5 +17,7 @@ public:
 	MapTile(sf::Texture*, sf::Vector2f);
 	MapTile(sf::Texture*, sf::Vector2f, char);
 
+	sf::Vector2f getPosition();
+	sf::Vector2f getTopPosition();
 	void draw(sf::RenderWindow&);
 };

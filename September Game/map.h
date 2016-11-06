@@ -28,6 +28,7 @@ public:
 	//WIP:
 	void rotate_clockwise();
 	void rotate_counterclockwise();
+	sf::Vector2f getPositionFromCoordinate(sf::Vector2i);
 	void raiseTile(int x, int y); //return bool?
 	void lowerTile(int x, int y); //return bool?
 	void draw(sf::RenderWindow&);

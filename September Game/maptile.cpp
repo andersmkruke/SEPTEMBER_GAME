@@ -37,6 +37,16 @@ MapTile::MapTile(sf::Texture* ptr_texture, sf::Vector2f position, char height)
 	init(ptr_texture, position, height);
 }
 
+sf::Vector2f MapTile::getPosition()
+{
+	return position;
+}
+
+sf::Vector2f MapTile::getTopPosition()
+{
+	return sf::Vector2f(tiles.back()->getPosition());
+}
+
 void MapTile::draw(sf::RenderWindow &window)
 {
 	for (std::vector<Drawable*>::iterator it = tiles.begin(); it < tiles.end(); ++it)

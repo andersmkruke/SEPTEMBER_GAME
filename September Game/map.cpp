@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include <vector>
+#include <iostream>
+
 #include "map.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -65,7 +67,8 @@ void Map::init(sf::Vector2f origin)
 		++i;
 	}
 
-	units.push_back(new Unit());
+
+	units.push_back(new Unit(*this));
 }
 
 Map::Map()
@@ -81,6 +84,11 @@ Map::Map(std::FILE map_file)
 void Map::rotate_clockwise()
 {
 
+}
+
+sf::Vector2f Map::getPositionFromCoordinate(sf::Vector2i coordinate)
+{
+	return map[coordinate.y][coordinate.x].getTopPosition();
 }
 
 void Map::draw(sf::RenderWindow &window)

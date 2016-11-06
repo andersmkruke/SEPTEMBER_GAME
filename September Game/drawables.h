@@ -14,6 +14,7 @@ public:
 	Drawable(sf::Texture*, sf::Vector2f);
 
 	bool setTexture(sf::Texture*);
+	sf::Vector2f getPosition();
 	void setPosition(sf::Vector2f);
 	sf::Sprite getSprite();
 	void draw(sf::RenderWindow&);

@@ -33,6 +33,11 @@ bool Drawable::setTexture(sf::Texture* ptr_texture)
 	return true;
 }
 
+sf::Vector2f Drawable::getPosition()
+{
+	return sprite.getPosition();
+}
+
 void Drawable::setPosition(sf::Vector2f position)
 {
 	sprite.setPosition(position);
