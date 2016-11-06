@@ -3,32 +3,23 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 
-#include "drawables.h"
-/*
-* Holds information about a tile on a map, including (possibly stacked) Tile sprites
-*/
-class MapTile
-{
-private:
-	sf::Vector2f position;
-	char height;
-	std::vector<Drawable*> tiles;
-
-	void init(std::string, sf::Vector2f, char);
-public:
-	MapTile();
-	MapTile(std::string);
-	MapTile(std::string, sf::Vector2f);
-	MapTile(std::string, sf::Vector2f, char);
-
-	void draw(sf::RenderWindow&);
-};
+#include "maptile.h"
+#include "unit.h"
 
 class Map
 {
 private:
 	std::vector<std::vector<MapTile>> map;
 	sf::Vector2f origin;
+	std::vector<std::string> texture_paths = {
+		"Resources/Sprites/Tiles/water.png",
+		"Resources/Sprites/Tiles/grass.png",
+		"Resources/Sprites/Tiles/rock.png",
+		"Resources/Sprites/Tiles/earth.png"
+	};
+	std::map<std::string, sf::Texture*> textures;
+	std::vector<Unit*> units;
+
 	void init(sf::Vector2f);
 
 public:
@@ -41,4 +32,3 @@ public:
 	void lowerTile(int x, int y); //return bool?
 	void draw(sf::RenderWindow&);
 };
-

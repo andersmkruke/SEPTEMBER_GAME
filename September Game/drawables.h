@@ -5,37 +5,21 @@
 class Drawable
 {
 private:
-	bool init(std::string, sf::Vector2f);
-	sf::Texture texture;
+	bool init(sf::Texture*, sf::Vector2f);
+	sf::Texture* texture;
 	sf::Sprite sprite;
 public:
 	Drawable();
-	Drawable(std::string);
-	Drawable(std::string, sf::Vector2f);
+	Drawable(sf::Texture*);
+	Drawable(sf::Texture*, sf::Vector2f);
 
-	bool setTexture(std::string);
+	bool setTexture(sf::Texture*);
 	void setPosition(sf::Vector2f);
 	sf::Sprite getSprite();
 	void draw(sf::RenderWindow&);
 };
 
 class AnimatedDrawable : public Drawable
-{
-private:
-
-public:
-	
-};
-
-class Tile : public Drawable
-{
-private:
-
-public:
-
-};
-
-class Unit : public AnimatedDrawable
 {
 private:
 

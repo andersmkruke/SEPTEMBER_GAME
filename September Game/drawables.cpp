@@ -2,10 +2,9 @@
 #include "drawables.h"
 #include <iostream>
 
-bool Drawable::init(std::string texture_path, sf::Vector2f position)
+bool Drawable::init(sf::Texture* ptr_texture, sf::Vector2f position)
 {
-	if (!texture.loadFromFile(texture_path)) { throw std::exception("ERROR"); }
-	sprite.setTexture(texture);
+	sprite.setTexture(*ptr_texture);
 	sprite.setPosition(position);
 	return true;
 }
@@ -13,23 +12,24 @@ bool Drawable::init(std::string texture_path, sf::Vector2f position)
 Drawable::Drawable()
 {
 	// TODO Set a standard texture
-	init("Resources/Sprites/Tiles/grass.png", sf::Vector2f(0.0f, 0.0f));
+	sf::Texture t = sf::Texture();
+	t.loadFromFile("Resources/Sprites/Tiles/grass.png");
+	init(&t, sf::Vector2f(0.0f, 0.0f));
 }
 
-Drawable::Drawable(std::string texture_path)
+Drawable::Drawable(sf::Texture* ptr_texture)
 {
-	init(texture_path, sf::Vector2f(0.0f, 0.0f));
+	init(ptr_texture, sf::Vector2f(0.0f, 0.0f));
 }
 
-Drawable::Drawable(std::string texture_path, sf::Vector2f position)
+Drawable::Drawable(sf::Texture* ptr_texture, sf::Vector2f position)
 {
-	init(texture_path, position);
+	init(ptr_texture, position);
 }
 
-bool Drawable::setTexture(std::string texture_path)
+bool Drawable::setTexture(sf::Texture* ptr_texture)
 {
-	if (!texture.loadFromFile(texture_path)) { return false; }
-	sprite.setTexture(texture);
+	sprite.setTexture(*ptr_texture);
 	return true;
 }
 
