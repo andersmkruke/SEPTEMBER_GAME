@@ -67,8 +67,19 @@ void Map::init(sf::Vector2f origin)
 		++i;
 	}
 
-
-	units.push_back(new Unit(*this));
+	i = 0;
+	for (auto it = map.cbegin(); it < map.cend(); ++it)
+	{
+		int j = 0;
+		for (auto jt = it->cbegin(); jt < it->cend(); ++jt)
+		{
+			units.push_back(new Unit(*this, sf::Vector2i(j, i)));
+			++j;
+		}
+		++i;
+	}
+	
+	
 }
 
 Map::Map()
@@ -91,6 +102,11 @@ sf::Vector2f Map::getPositionFromCoordinate(sf::Vector2i coordinate)
 	return map[coordinate.y][coordinate.x].getTopPosition();
 }
 
+MapTile* Map::getMapTileFromCoordinate(sf::Vector2i coordinate)
+{
+	return &map[coordinate.y][coordinate.x];
+}
+
 void Map::draw(sf::RenderWindow &window)
 {
 	for (auto it_y = map.begin(); it_y < map.end(); ++it_y)
@@ -99,10 +115,5 @@ void Map::draw(sf::RenderWindow &window)
 		{
 			it_x->draw(window);
 		}
-	}
-
-	for (auto it = units.begin(); it < units.end(); ++it)
-	{
-		(*it)->draw(window);
 	}
 }

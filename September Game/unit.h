@@ -17,6 +17,8 @@ private:
 	void init(Map&, sf::Vector2i);
 public:
 	Unit(Map&);
+	Unit::Unit(Map&, sf::Vector2i);
+
 	void setTileCoordinate(sf::Vector2f);
 	void draw(sf::RenderWindow&);
 };

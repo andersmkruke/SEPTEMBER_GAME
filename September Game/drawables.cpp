@@ -50,5 +50,5 @@ sf::Sprite Drawable::getSprite()
 
 void Drawable::draw(sf::RenderWindow &window)
 {
-	window.draw(sprite);	
+	window.draw(sprite);
 }

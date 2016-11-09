@@ -47,9 +47,31 @@ sf::Vector2f MapTile::getTopPosition()
 	return sf::Vector2f(tiles.back()->getPosition());
 }
 
+void MapTile::pushOnTop(Drawable* drawable)
+{
+	on_top.push_back(drawable);
+}
+
+bool MapTile::removeOnTop(Drawable* remove)
+{
+	for (auto it = on_top.begin(); it < on_top.end(); ++it)
+	{
+		if ((*it) == remove)
+		{
+			on_top.erase(it);
+			return true;
+		}
+	}
+	return false;
+}
+
 void MapTile::draw(sf::RenderWindow &window)
 {
-	for (std::vector<Drawable*>::iterator it = tiles.begin(); it < tiles.end(); ++it)
+	for (auto it = tiles.begin(); it < tiles.end(); ++it)
+	{
+		(*it)->draw(window);
+	}
+	for (auto it = on_top.begin(); it < on_top.end(); ++it)
 	{
 		(*it)->draw(window);
 	}
