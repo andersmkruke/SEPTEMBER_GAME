@@ -67,18 +67,7 @@ void Map::init(sf::Vector2f origin)
 		++i;
 	}
 
-	i = 0;
-	for (auto it = map.cbegin(); it < map.cend(); ++it)
-	{
-		int j = 0;
-		for (auto jt = it->cbegin(); jt < it->cend(); ++jt)
-		{
-			units.push_back(new Unit(*this, sf::Vector2i(j, i)));
-			++j;
-		}
-		++i;
-	}
-	
+	units.push_back(new Unit(*this, sf::Vector2i(0, 0)));
 	
 }
 
@@ -105,6 +94,73 @@ sf::Vector2f Map::getPositionFromCoordinate(sf::Vector2i coordinate)
 MapTile* Map::getMapTileFromCoordinate(sf::Vector2i coordinate)
 {
 	return &map[coordinate.y][coordinate.x];
+}
+
+void Map::update()
+{
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+	{
+		if (!old_right)
+		{
+			for (auto it = units.begin(); it < units.end(); ++it)
+			{
+				(*it)->moveRight(*this);
+			}
+		}
+		old_right = true;
+	}
+	else
+	{
+		old_right = false;
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+	{
+		if (!old_left)
+		{
+			for (auto it = units.begin(); it < units.end(); ++it)
+			{
+				(*it)->moveLeft(*this);
+			}
+		}
+		old_left = true;
+	}
+	else
+	{
+		old_left = false;
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+	{
+		if (!old_down)
+		{
+			for (auto it = units.begin(); it < units.end(); ++it)
+			{
+				(*it)->moveDown(*this);
+			}
+		}
+		old_down = true;
+	}
+	else
+	{
+		old_down = false;
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+	{
+		if (!old_up)
+		{
+			for (auto it = units.begin(); it < units.end(); ++it)
+			{
+				(*it)->moveUp(*this);
+			}
+		}
+		old_up = true;
+	}
+	else
+	{
+		old_up = false;
+	}
 }
 
 void Map::draw(sf::RenderWindow &window)

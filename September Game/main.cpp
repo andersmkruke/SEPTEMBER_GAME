@@ -27,6 +27,7 @@ int main()
 			window.close();
 		}
 
+		test_map.update();
 		window.clear();
 		test_map.draw(window);
 		window.display();

@@ -20,6 +20,12 @@ private:
 	std::map<std::string, sf::Texture*> textures;
 	std::vector<Unit*> units;
 
+	//Keyboard variables
+	bool old_right = false;
+	bool old_left = false;
+	bool old_down = false;
+	bool old_up = false;
+
 	void init(sf::Vector2f);
 
 public:
@@ -32,5 +38,6 @@ public:
 	MapTile* getMapTileFromCoordinate(sf::Vector2i);
 	void raiseTile(int x, int y); //return bool?
 	void lowerTile(int x, int y); //return bool?
+	void update();
 	void draw(sf::RenderWindow&);
 };

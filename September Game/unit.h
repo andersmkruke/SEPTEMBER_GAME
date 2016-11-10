@@ -19,6 +19,12 @@ public:
 	Unit(Map&);
 	Unit::Unit(Map&, sf::Vector2i);
 
-	void setTileCoordinate(sf::Vector2f);
+	void setTileCoordinate(Map&, sf::Vector2i);
+	
+	void moveRight(Map&);
+	void moveLeft(Map&);
+	void moveDown(Map&);
+	void moveUp(Map&);
+
 	void draw(sf::RenderWindow&);
 };
