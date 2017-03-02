@@ -9,7 +9,7 @@
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(1024,1024), "SÜPER ÜBER MËGA GÄME!");
+	sf::RenderWindow window(sf::VideoMode(1024,1024), "Can't believe it's not Scholes!");
 
 	Map test_map = Map();
 
