@@ -2,8 +2,6 @@
 
 #include "drawables.h"
 
-class Map;
-
 class Unit
 {
 private:
@@ -14,17 +12,16 @@ private:
 	sf::Texture texture; // Temp.
 	Drawable* drawable;
 
-	void init(Map&, sf::Vector2i);
+	void init(sf::Vector2i);
 public:
-	Unit(Map&);
-	Unit::Unit(Map&, sf::Vector2i);
+	Unit();
+	Unit::Unit(sf::Vector2i);
 
-	void setTileCoordinate(Map&, sf::Vector2i);
-	
-	void moveRight(Map&);
-	void moveLeft(Map&);
-	void moveDown(Map&);
-	void moveUp(Map&);
+	sf::Vector2i getTileCoordinate();
+	void setTileCoordinate(sf::Vector2i);
+	sf::Vector2f getPosition();
+	void setPosition(sf::Vector2f new_position);
+	float getHeight();
 
 	void draw(sf::RenderWindow&);
 };

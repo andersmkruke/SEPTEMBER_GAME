@@ -8,6 +8,8 @@
 
 class Map
 {
+public:
+	enum Direction { up, up_right, right, down_right, down, down_left, left, up_left };
 private:
 	std::vector<std::vector<MapTile>> map;
 	sf::Vector2f origin;
@@ -19,6 +21,7 @@ private:
 	};
 	std::map<std::string, sf::Texture*> textures;
 	std::vector<Unit*> units;
+	Unit* active_unit;
 
 	//Keyboard variables
 	bool old_right = false;
@@ -38,6 +41,8 @@ public:
 	MapTile* getMapTileFromCoordinate(sf::Vector2i);
 	void raiseTile(int x, int y); //return bool?
 	void lowerTile(int x, int y); //return bool?
+	void addUnitToTile(Unit* unit);
+	void moveUnit(Unit *unit, Direction direction);
 	void update();
 	void draw(sf::RenderWindow&);
 };

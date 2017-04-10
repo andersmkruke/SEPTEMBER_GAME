@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "maptile.h"
 #include "drawables.h"
+#include <iostream>
 
 #include <SFML\Graphics.hpp>
 
@@ -11,7 +12,8 @@ void MapTile::init(sf::Texture* ptr_texture, sf::Vector2f position, char height)
 
 	for (int i = 0; i < height + 1; ++i)
 	{
-		tiles.push_back(new Drawable(ptr_texture, sf::Vector2f(position.x, position.y - (32 * i))));
+		Drawable *new_drawable = new Drawable(ptr_texture, sf::Vector2f(position.x, position.y - (32 * i)));
+		addTile(new_drawable);
 	}
 }
 
@@ -47,18 +49,32 @@ sf::Vector2f MapTile::getTopPosition()
 	return sf::Vector2f(tiles.back()->getPosition());
 }
 
-void MapTile::pushOnTop(Drawable* drawable)
+void MapTile::addTile(Drawable *tile)
 {
-	on_top.push_back(drawable);
+	tiles.push_back(tile);
 }
 
-bool MapTile::removeOnTop(Drawable* remove)
+void MapTile::popTile()
 {
-	for (auto it = on_top.begin(); it < on_top.end(); ++it)
+	tiles.pop_back();
+	// TODO: Move units on top down to ground level
+}
+
+
+
+void MapTile::addUnit(Unit* add_unit)
+{
+	units.push_back(add_unit);
+	add_unit->setPosition(getTopPosition()); // TODO: getTopPosition does not work when 'units' is not empty.
+}
+
+bool MapTile::removeUnit(Unit* remove_unit)
+{
+	for (auto it = units.begin(); it < units.end(); ++it)
 	{
-		if ((*it) == remove)
+		if ((*it) == remove_unit)
 		{
-			on_top.erase(it);
+			units.erase(it);
 			return true;
 		}
 	}
@@ -71,7 +87,7 @@ void MapTile::draw(sf::RenderWindow &window)
 	{
 		(*it)->draw(window);
 	}
-	for (auto it = on_top.begin(); it < on_top.end(); ++it)
+	for (auto it = units.begin(); it < units.end(); ++it)
 	{
 		(*it)->draw(window);
 	}

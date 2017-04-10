@@ -67,8 +67,9 @@ void Map::init(sf::Vector2f origin)
 		++i;
 	}
 
-	units.push_back(new Unit(*this, sf::Vector2i(0, 0)));
-	
+	units.push_back(new Unit());
+	active_unit = units.back();
+	addUnitToTile(active_unit);
 }
 
 Map::Map()
@@ -83,7 +84,7 @@ Map::Map(std::FILE map_file)
 
 void Map::rotate_clockwise()
 {
-
+	// TODO: Rotate the map 90 degrees clockwise
 }
 
 sf::Vector2f Map::getPositionFromCoordinate(sf::Vector2i coordinate)
@@ -96,6 +97,18 @@ MapTile* Map::getMapTileFromCoordinate(sf::Vector2i coordinate)
 	return &map[coordinate.y][coordinate.x];
 }
 
+void Map::addUnitToTile(Unit* unit)
+{
+	sf::Vector2i tile_coordinate = unit->getTileCoordinate();
+	map[tile_coordinate.y][tile_coordinate.x].addUnit(unit);
+}
+
+void Map::moveUnit(Unit *unit, Direction direction)
+{
+	sf::Vector2i tile_coordinate = unit->getTileCoordinate();
+	map[tile_coordinate.y][tile_coordinate.x].removeUnit(unit);
+}
+
 void Map::update()
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
@@ -104,7 +117,8 @@ void Map::update()
 		{
 			for (auto it = units.begin(); it < units.end(); ++it)
 			{
-				(*it)->moveRight(*this);
+				// CHANGE (*it)->moveRight(*this);
+				moveUnit(active_unit, Direction::right);
 			}
 		}
 		old_right = true;
@@ -120,7 +134,8 @@ void Map::update()
 		{
 			for (auto it = units.begin(); it < units.end(); ++it)
 			{
-				(*it)->moveLeft(*this);
+				// CHANGE (*it)->moveLeft(*this);
+				moveUnit(active_unit, Direction::left);
 			}
 		}
 		old_left = true;
@@ -136,7 +151,8 @@ void Map::update()
 		{
 			for (auto it = units.begin(); it < units.end(); ++it)
 			{
-				(*it)->moveDown(*this);
+				// CHANGE (*it)->moveDown(*this);
+				moveUnit(active_unit, Direction::down);
 			}
 		}
 		old_down = true;
@@ -152,7 +168,8 @@ void Map::update()
 		{
 			for (auto it = units.begin(); it < units.end(); ++it)
 			{
-				(*it)->moveUp(*this);
+				// CHANGE (*it)->moveUp(*this);
+				moveUnit(active_unit, Direction::up);
 			}
 		}
 		old_up = true;
