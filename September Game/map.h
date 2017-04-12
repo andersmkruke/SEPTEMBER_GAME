@@ -20,6 +20,8 @@ private:
 		"Resources/Sprites/Tiles/earth.png"
 	};
 	std::map<std::string, sf::Texture*> textures;
+	int tile_width, tile_height;
+
 	std::vector<Unit*> units;
 	Unit* active_unit;
 
