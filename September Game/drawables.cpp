@@ -48,6 +48,11 @@ sf::Sprite Drawable::getSprite()
 	return sprite;
 }
 
+float Drawable::getHeight()
+{
+	return sprite.getGlobalBounds().height;
+}
+
 void Drawable::draw(sf::RenderWindow &window)
 {
 	window.draw(sprite);

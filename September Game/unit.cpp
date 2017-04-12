@@ -5,79 +5,51 @@
 
 #include <iostream>
 
-void Unit::init(Map& map, sf::Vector2i tile_coordinate)
+void Unit::init(sf::Vector2i tile_coordinate)
 {
 	if (!texture.loadFromFile("Resources/Sprites/Units/unit.png"))
 		std::cout << "ERROR - FILE NOT FOUND! (Resources/Sprites/Units/example_unit.png)" << std::endl;
 
 	this->tile_coordinate = tile_coordinate;
-	sf::Vector2f tile_pos = map.getPositionFromCoordinate(tile_coordinate);
-	this->position = sf::Vector2f(tile_pos.x, tile_pos.y);
+	this->position = sf::Vector2f(0.0f, 0.0f);
 
 	drawable = new Drawable(&texture, this->position);
-	map.getMapTileFromCoordinate(tile_coordinate)->pushOnTop(drawable);
 }
 
-Unit::Unit(Map& map)
+Unit::Unit()
 {
-	init(map, sf::Vector2i(0, 0)); // WARNING! Possible exception if position values are outside map bounds
+	init(sf::Vector2i(0, 0)); // WARNING! Possible exception if position values are outside map bounds
 }
 
-Unit::Unit(Map& map, sf::Vector2i coordinate)
+Unit::Unit(sf::Vector2i coordinate)
 {
-	init(map, coordinate);
+	init(coordinate);
 }
 
-void Unit::setTileCoordinate(Map& map, sf::Vector2i coordinate)
+sf::Vector2i Unit::getTileCoordinate()
 {
-	// TDOO: Check for out of bounds
-	map.getMapTileFromCoordinate(tile_coordinate)->removeOnTop(drawable);
+	return tile_coordinate;
+}
+
+void Unit::setTileCoordinate(sf::Vector2i coordinate)
+{
 	tile_coordinate = coordinate;
-	map.getMapTileFromCoordinate(tile_coordinate)->pushOnTop(drawable);
 }
 
-void Unit::moveRight(Map& map)
+sf::Vector2f Unit::getPosition()
 {
-	if (tile_coordinate.x < 7)
-	{
-		map.getMapTileFromCoordinate(tile_coordinate)->removeOnTop(drawable);
-		tile_coordinate = sf::Vector2i(tile_coordinate.x+1, tile_coordinate.y);
-		map.getMapTileFromCoordinate(tile_coordinate)->pushOnTop(drawable);
-		drawable->setPosition(map.getPositionFromCoordinate(tile_coordinate));
-	}
+	return position;
 }
 
-void Unit::moveLeft(Map& map)
+void Unit::setPosition(sf::Vector2f new_position)
 {
-	if (tile_coordinate.x > 0)
-	{
-		map.getMapTileFromCoordinate(tile_coordinate)->removeOnTop(drawable);
-		tile_coordinate = sf::Vector2i(tile_coordinate.x - 1, tile_coordinate.y);
-		map.getMapTileFromCoordinate(tile_coordinate)->pushOnTop(drawable);
-		drawable->setPosition(map.getPositionFromCoordinate(tile_coordinate));
-	}
+	this->position = new_position;
+	drawable->setPosition(new_position);
 }
 
-void Unit::moveDown(Map& map)
+float Unit::getHeight()
 {
-	if (tile_coordinate.y < 7)
-	{
-		map.getMapTileFromCoordinate(tile_coordinate)->removeOnTop(drawable);
-		tile_coordinate = sf::Vector2i(tile_coordinate.x, tile_coordinate.y+1);
-		map.getMapTileFromCoordinate(tile_coordinate)->pushOnTop(drawable);
-		drawable->setPosition(map.getPositionFromCoordinate(tile_coordinate));
-	}
-}
-
-void Unit::moveUp(Map& map)
-{
-	if (tile_coordinate.y > 0)
-	{
-		map.getMapTileFromCoordinate(tile_coordinate)->removeOnTop(drawable);
-		tile_coordinate = sf::Vector2i(tile_coordinate.x, tile_coordinate.y-1);
-		map.getMapTileFromCoordinate(tile_coordinate)->pushOnTop(drawable);
-		drawable->setPosition(map.getPositionFromCoordinate(tile_coordinate));
-	}
+	return drawable->getHeight();
 }
 
 

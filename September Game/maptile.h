@@ -1,5 +1,6 @@
 #pragma once
 #include "drawables.h"
+#include "unit.h"
 /*
 * Holds information about a tile on a map, including (possibly stacked) Tile sprites
 */
@@ -8,8 +9,9 @@ class MapTile
 private:
 	sf::Vector2f position;
 	char height;
+	short pixel_height;
 	std::vector<Drawable*> tiles;
-	std::vector<Drawable*> on_top;
+	std::vector<Unit*> units;
 
 	void init(sf::Texture*, sf::Vector2f, char);
 
@@ -21,7 +23,9 @@ public:
 
 	sf::Vector2f getPosition();
 	sf::Vector2f getTopPosition();
-	void pushOnTop(Drawable*);
-	bool removeOnTop(Drawable*);
+	void addTile(Drawable* tile);
+	void popTile();
+	void addUnit(Unit*);
+	bool removeUnit(Unit*);
 	void draw(sf::RenderWindow&);
 };

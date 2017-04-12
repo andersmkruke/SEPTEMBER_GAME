@@ -17,6 +17,7 @@ public:
 	sf::Vector2f getPosition();
 	void setPosition(sf::Vector2f);
 	sf::Sprite getSprite();
+	float getHeight();
 	void draw(sf::RenderWindow&);
 };
 
